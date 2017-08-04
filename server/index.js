@@ -23,3 +23,4 @@ app.get('*', function(req, res) {
 // 监听8088端口
 app.listen(3000);
 console.log('success listen 3000…………');
+console.log('Visit http://localhost:' + '3000');

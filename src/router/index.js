@@ -1,13 +1,14 @@
 import Vue      from 'vue'
 import Router   from 'vue-router'
-import Archive  from '../components/front/Archive.vue'
-import Article  from '../components/front/Article.vue'
-import Console  from '../components/back/Console.vue'
-import Login    from '../components/back/Login.vue'
-import Articles from '../components/back/Articles.vue'
-import Editor   from '../components/back/Editor.vue'
-import Links    from '../components/back/Links.vue'
-import Account  from '../components/back/Account.vue'
+import Archive  from '../components/frontend/Archive.vue'
+import Article  from '../components/frontend/Article.vue'
+import Console  from '../components/backend/Console.vue'
+import Login    from '../components/backend/Login.vue'
+import Sign_up  from '../components/backend/Sign_up.vue'
+import Articles from '../components/backend/Articles.vue'
+import Editor   from '../components/backend/Editor.vue'
+import Links    from '../components/backend/Links.vue'
+import Account  from '../components/backend/Account.vue'
 
 Vue.use(Router)
 
@@ -16,6 +17,7 @@ export default new Router({
   routes: [
     {path: '/archive', name: 'archive', component: Archive},
     {path: '/article', name: 'article', component: Article},
+    {path: '/Sign_up', name: 'Sign_up', component: Sign_up},
     {path: '/', component: Login},
     {
       path: '/console',

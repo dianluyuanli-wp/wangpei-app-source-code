@@ -4,8 +4,9 @@ const db = require('./db')
 const fn = () => {}
 
 router.get('/api/getArticle', (req, res) => {
-  const _id = req.query.id
-  db.Article.findOne({_id}, (err, doc) => {
+  const key = req.query.id
+  //console.log(key)
+  db.Article.findOne({'_id':key}, (err, doc) => {
     if (err) {
       console.log(err)
     } else if (doc) {

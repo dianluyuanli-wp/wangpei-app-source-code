@@ -76,7 +76,9 @@
   @import "../../style/variables";
 
   section.login {
-	position: relative;
+	position: absolute;
+	top:250px;
+	left:400px;
     .form {
       width: 500px;
       height: 400px;

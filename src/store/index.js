@@ -11,7 +11,9 @@ const store = new Vuex.Store({
     isLoading: false,
     isToasting: false,
     articles: [],
+    //article: {content:'we',title:'we'},
     article: {},
+    //wang: {content:'999',title:'090'},
     user: {name: '', pwd: ''},
     links: [],
     toast: {

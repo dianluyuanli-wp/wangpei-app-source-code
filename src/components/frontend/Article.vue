@@ -1,18 +1,19 @@
 <template>
   <main class="wrap">
-    <my-header></my-header>
+	<my-header></my-header>
     <section class="article">
       <article class="block">
-        <div class="title">{{article.title}}</div>
-        <div class="info">{{article.date |toDate}}</div>
-        <div class="content" v-html="article.content"></div>
+		<div class="title">{{title}}</div>
+		<div class="info">{{date|toDate}}</div>
+        <div class="content" v-html="content"></div>
       </article>
     </section>
     <my-footer></my-footer>
   </main>
 </template>
+
 <script>
-  import {mapState}   from 'vuex'
+  import {mapState, mapActions, mapMutations}   from 'vuex'
   import marked       from '../../assets/js/marked.min'
   import hljs         from '../../assets/js/highlight.pack'
   import MyHeader     from './MyHeader.vue'
@@ -20,32 +21,48 @@
 
   export default{
     created(){
-      this.fetchData()
+      const id = this.$route.query.id
+      if (id) {
+		this.getArticle(id)
+      }
     },
     updated(){
       this.highlight()
     },
     methods: {
-      fetchData(){
-        this.$store.dispatch('getArticle', this.$route.query.id)
-      },
       highlight(){
         setTimeout(() => {
           hljs.initHighlighting.called = false
           hljs.initHighlighting()
         }, 0)
+      },
+      ...mapActions(['getArticle'])
+    },
+    computed: {
+      content: {
+        get(){
+          this.highlight()
+          return this.$store.state.article.content
+        },
+        set(value){
+          this.$store.commit('UPDATE_CONTENT', value)
+        }
+      },
+      date:{
+		get(){
+			return this.$store.state.article.date
+		}
+      },
+      title: {
+        get(){
+		  return this.$store.state.article.title
+        },
+        set(value){
+          this.$store.commit('UPDATE_TITLE', value)
+        }
       }
     },
-    computed: mapState({
-      article: state => {
-        state.article.content = marked(state.article.content || '')
-        return state.article
-      }
-    }),
-    components: {MyHeader, MyFooter},
-    watch: {
-      '$route': ['fetchData', 'highlight']
-    }
+    components: {MyHeader, MyFooter}
   }
 </script>
 

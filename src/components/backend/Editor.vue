@@ -12,7 +12,7 @@
         <i class="fa fa-chevron-right fa-fw"
            v-show="inspected"></i>
       </button>
-      <article id="a" v-html="markedContent"></article>
+      <div id="a" v-html="markedContent"></div>
     </div>
     <div class="panel">
       <button class="saveArticle"
@@ -35,11 +35,36 @@
     },
     created(){
       const id = this.$route.query.id
-      if (id) return this.getArticle(id)
+      if (id) {
+		this.getArticle(id)
+      }
       this.SET_ARTICLE({date: new Date()})
     },
     updated(){
       this.highlight()
+    },
+    computed: {
+      content: {
+        get(){
+          /*this.markedContent = marked(
+            this.$store.state.article.content || '',
+            {sanitize: true}
+          )*/
+          this.highlight()
+          return this.$store.state.article.content
+        },
+        set(value){
+          this.$store.commit('UPDATE_CONTENT', value)
+        }
+      },
+      title: {
+        get(){
+		  return this.$store.state.article.title
+        },
+        set(value){
+          this.$store.commit('UPDATE_TITLE', value)
+        }
+      }
     },
     methods: {
       save(){
@@ -53,32 +78,11 @@
           hljs.initHighlighting()
         }, 0)
       },
-      ...mapActions(['getArticle', 'saveArticle']),
+      ...mapActions(['getArticle','saveArticle']),
       ...mapMutations(['SET_ARTICLE'])
-    },
-    computed: {
-      content: {
-        get(){
-          this.markedContent = marked(
-            this.$store.state.article.content || '',
-            {sanitize: true}
-          )
-          this.highlight()
-          return this.$store.state.article.content
-        },
-        set(value){
-          this.$store.commit('UPDATE_CONTENT', value)
-        }
-      },
-      title: {
-        get(){
-          return this.$store.state.article.title
-        },
-        set(value){
-          this.$store.commit('UPDATE_TITLE', value)
-        }
-      }
     }
+    
+
   }
 </script>
 <style lang="scss" rel="stylesheet/scss">
