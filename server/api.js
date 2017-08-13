@@ -16,13 +16,24 @@ router.get('/api/getArticle', (req, res) => {
 })
 
 router.get('/api/getArticles', (req, res) => {
-  db.Article.find(null, 'title date content', (err, doc) => {
+  const user = req.query.user	
+  db.Article.find({'user':user}, 'title date content', (err, doc) => {
     if (err) {
       console.log(err)
     } else if (doc) {
       res.send(JSON.stringify(doc))
     }
   })
+})
+
+router.post('/api/setup', function (req, res) {
+  new db.User(req.body)
+    .save()
+    .then(() => {
+      res.status(200).end()
+      db.initialized = true
+    })
+    .catch(() => res.status(500).end())
 })
 
 router.post('/api/login', (req, res) => {
@@ -52,7 +63,8 @@ router.post('/api/saveArticle', (req, res) => {
   const article = {
     title: req.body.title,
     date: req.body.date,
-    content: req.body.content
+    content: req.body.content,
+    user: req.body.user
   }
   if (id) {
     db.Article.findByIdAndUpdate(id, article, fn)

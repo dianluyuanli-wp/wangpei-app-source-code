@@ -36,7 +36,7 @@
   import {mapState, mapActions} from 'vuex'
   export default{
     created(){
-      this.getArticles()
+      this.getArticles(this.$store.state.user.name)
     },
     computed: mapState(['articles']),
     methods: mapActions(['getArticles', 'deleteArticle'])

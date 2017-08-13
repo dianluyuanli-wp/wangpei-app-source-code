@@ -26,9 +26,9 @@ Promise.prototype.finally = function (callback) {
 }
 
 export default {
-  getArticles: ({commit}) => {
+  getArticles: ({commit},user) => {
     const start = beginLoading(commit)
-    return Vue.http.get('/api/getArticles')
+    return Vue.http.get('/api/getArticles', {params: {user}})
       .then(response => response.json())
       .then(articles => {
         stopLoading(commit, start)

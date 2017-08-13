@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const init = require('./init.json')
 const Schema = mongoose.Schema
+var uri='mongodb://xiaohuli:u962910@ds159747.mlab.com:59747/xiaohuli'
+
+mongoose.Promise = global.Promise
 
 const userSchema = new Schema({
   name: String,
@@ -10,7 +13,8 @@ const userSchema = new Schema({
 const articleSchema = new Schema({
   title: String,
   date: Date,
-  content: String
+  content: String,
+  user: String
 })
 
 const linkSchema = new Schema({
@@ -40,7 +44,8 @@ const initialize = function () {
   })
 }
 
-mongoose.connect('mongodb://127.0.0.1/CMS2')
+mongoose.connect(uri)
+//mongoose.connect('mongodb://127.0.0.1/CMS2')
 // mongoose.set('debug', true)
 
 const db = mongoose.connection

@@ -4,7 +4,7 @@ import {mapState}   from 'vuex'
 
 import Spinner      from './components/share/Spinner.vue'
 import Toast        from './components/share/Toast.vue'
-import MyCanvas     from './components/share/MyCanvas.vue'
+import MyCanvas     from './components/share/canvas.vue'
 
 import store        from './store'
 import router       from './router'

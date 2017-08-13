@@ -39,6 +39,7 @@
 		this.getArticle(id)
       }
       this.SET_ARTICLE({date: new Date()})
+      this.SET_ARTICLE_USER(this.$store.state.user.name)
     },
     updated(){
       this.highlight()
@@ -79,7 +80,7 @@
         }, 0)
       },
       ...mapActions(['getArticle','saveArticle']),
-      ...mapMutations(['SET_ARTICLE'])
+      ...mapMutations(['SET_ARTICLE','SET_ARTICLE_USER'])
     }
     
 

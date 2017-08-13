@@ -17,6 +17,9 @@ export default {
   SET_USER: (state, user) => {
     state.user = user
   },
+  SET_ARTICLE_USER:(state,user)=>{
+	state.article.user=user
+  },
   UPDATE_CONTENT: (state, content) => {
     state.article.content = content
   },
